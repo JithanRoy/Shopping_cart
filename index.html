@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="item_minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="update_value" type="text" class="form-control text-center" value="1">
+                           <button id="item_plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5 id="iphone_amount">$1219</h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -77,6 +77,35 @@
          </div>
       </div>
    </section>
+
+   <script>
+    //update_cart = document.getElementById('update_value').value;
+      itemPlusclick = document.getElementById('item_plus')
+         itemPlusclick.addEventListener('click',() => {
+            update_cart = document.getElementById('update_value').value;
+            var total_val = parseFloat(update_cart);
+            total_val += 1;
+            document.getElementById('update_value').value = total_val;
+            phoneAmount(total_val)
+            });
+
+      itemMinusClick = document.getElementById('item_minus').addEventListener('click',() => {
+               update_cart = document.getElementById('update_value').value;
+               total_val = parseFloat(update_cart);
+               total_val = total_val - 1; 
+               document.getElementById('update_value').value = total_val;
+               phoneAmount(total_val)
+           
+         });
+         
+         function phoneAmount (total_val) {
+            var current_amt = 1219 * total_val;
+            document.getElementById('iphone_amount').innerHTML = "$"+current_amt;
+         }
+
+
+      
+   </script>
 </body>
 
 </html>
