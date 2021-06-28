@@ -23,14 +23,14 @@
                         <h5>iPhone 11 128GB Black</h5>
                      </div>
 
-                     <div class="col-md-5 center-item">
+                     <div class="col-md-5 center-item cart_phone">
                         <div class="input-group number-spinner">
                            <button id="item_minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
                            <input id="update_value" type="text" class="form-control text-center" value="1">
                            <button id="item_plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5 id="iphone_amount">$1219</h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img src="images/remove.png" alt="" class="remove-item" id="dlt_phone">
                      </div>
                   </div>
                </div>
@@ -41,15 +41,15 @@
                         <img src="images/product-2.png" alt="">
                         <h5>iPhone 11 Silicone Case - Black</h5>
                      </div>
-                     <div class="col-md-5 center-item">
+                     <div class="col-md-5 center-item cart_case">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="Caseitem_minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="update_Case_value" type="text" class="form-control text-center" value="1">
+                           <button id="Caseitem_plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <h5 id="case_amt">$59</h5>
+                        <img src="images/remove.png" alt="" class="remove-item" id="dlt_case">
                      </div>
                   </div>
                </div>
@@ -63,10 +63,10 @@
                         <h5>Total:</h5>
                      </div>
 
-                     <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                     <div id="temp" class="col-md-4 status" >
+                        <h5 class="total">$1,278</h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5 class="total">$1,278</h5>
                      </div>
                   </div>
                </div>
@@ -79,33 +79,122 @@
    </section>
 
    <script>
-    //update_cart = document.getElementById('update_value').value;
-      itemPlusclick = document.getElementById('item_plus')
-         itemPlusclick.addEventListener('click',() => {
-            update_cart = document.getElementById('update_value').value;
-            var total_val = parseFloat(update_cart);
-            total_val += 1;
-            document.getElementById('update_value').value = total_val;
-            phoneAmount(total_val)
+     
+//Iphone cart update
+       document.getElementById('update_value').value = 0 ;
+       document.getElementById('update_Case_value').value = 0;
+       document.getElementById('temp').childNodes[5].innerHTML = "$" + 0;
+       document.getElementById('temp').childNodes[1].innerHTML = "$" + 0;
+       document.getElementById('iphone_amount').innerHTML = "$"+ 0;
+       document.getElementById('case_amt').innerHTML = "$"+ 0;
+
+// Cart_remove
+      document.getElementById('dlt_phone').addEventListener('click',() => {
+               document.getElementById('dlt_phone').parentElement.parentElement.style.display = "none";
+            })
+
+      document.getElementById('dlt_case').addEventListener('click',() => {
+         document.getElementById('dlt_case').parentElement.parentElement.style.display = "none";
+      })
+
+//Iphone Update
+       var subtotal = [];
+        itemPlusclick = document.getElementById('item_plus').addEventListener('click',() => {
+                   var test = 3;
+                   PlusItems(test);
+                   
             });
 
-      itemMinusClick = document.getElementById('item_minus').addEventListener('click',() => {
-               update_cart = document.getElementById('update_value').value;
-               total_val = parseFloat(update_cart);
-               total_val = total_val - 1; 
-               document.getElementById('update_value').value = total_val;
-               phoneAmount(total_val)
+       document.getElementById('Caseitem_plus').addEventListener('click',() => {
+                              var test = 4
+                              PlusItems(test);
+                              //Subtotal();
+                              //document.getElementById('Subtotal').innerText = '$' + (case_amt+current_amt);
+               
            
-         });
-         
-         function phoneAmount (total_val) {
-            var current_amt = 1219 * total_val;
-            document.getElementById('iphone_amount').innerHTML = "$"+current_amt;
+                        });
+
+
+         function PlusItems(test)   {
+            
+            if (test == 3) {
+               update_cart = document.getElementById('update_value').value;
+               var val_plus = parseFloat(update_cart);
+               val_plus += 1;
+               document.getElementById('update_value').value = val_plus;
+               var phone_amt = 1219 * val_plus;
+               document.getElementById('iphone_amount').innerHTML = "$"+phone_amt;
+               subtotal.push(1219);
+               TotalAmount(subtotal);
+             }
+            else if (test == 4) {
+                  updateCase_cart = document.getElementById('update_Case_value').value;
+                  var case_val = parseFloat(updateCase_cart);
+                  case_val += 1;
+                  document.getElementById('update_Case_value').value = case_val;
+                  var case_amt = 59 * case_val;
+                  document.getElementById('case_amt').innerHTML = "$"+case_amt;
+                  subtotal.push(59);
+                  TotalAmount(subtotal)
+            }  
+
          }
 
 
-      
-   </script>
-</body>
+      document.getElementById('item_minus').addEventListener('click',() => {
+                   var test1 = 1;
+                   minusItem(test1);
+                   
+
+      })
+      document.getElementById('Caseitem_minus').addEventListener('click',() => {
+               updateCase_cart = document.getElementById('update_Case_value').value;
+                var test2 = 2;
+                minusItem(test2);
+                
+              })
+
+         function minusItem(test1) {
+               if (test1 == 1) {      
+                  update_cart1 = document.getElementById('update_value').value;
+                  var phone_val = parseFloat(update_cart1);
+                  phone_val = phone_val - 1;
+                  document.getElementById('update_value').value = phone_val;
+                  current_amt = 1219 * phone_val;
+                  document.getElementById('iphone_amount').innerHTML = "$"+current_amt;
+                  subtotal.push(-1219);
+                  TotalAmount(subtotal);
+                      }
+               else if (test1 == 2) {
+                  
+                     total_val = parseFloat(updateCase_cart);
+                      total_val = total_val - 1; 
+                     document.getElementById('update_Case_value').value = total_val;
+                      case_amt = 59 * total_val;
+                     document.getElementById('case_amt').innerHTML = "$"+case_amt;
+                     subtotal.push(-59);
+                     TotalAmount(subtotal);
+                     }
+             }
+            
+
+            function TotalAmount(subtotal)
+            {
+
+               var Total = 0;
+                  for (let i = 0; i<subtotal.length; i++)
+                  {
+                     Total = Total + subtotal[i];
+                  }
+                  document.getElementById('temp').childNodes[1].innerHTML = "$" + Total;
+                  document.getElementById('temp').childNodes[5].innerHTML = "$" + Total;
+                     
+            }
+
+
+         
+
+      </script>
+   </body>
 
 </html>
